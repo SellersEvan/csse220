@@ -45,34 +45,8 @@ public class StringProbs {
 	 *  
 	 */
 	public static boolean hasMiddleQ(String word) {
-		if(word.length() % 2 == 0)
-			return false;
-		int middleIndex = word.length()/2;     // dividing an int by and int
-		                                       // always produces an int in 
-		                                       // java.  It rounds down.
-		// Note charAt returns a character
-		// it's a bit like a string except it can only be
-		// exactly one character long
-		//
-		// In java, single quotes represent characters
-		// char myChar = 'Z';
-		// char myChar2 = 'Word'; //error must be 1 character long
-		//
-		// double quotes represents strings
-		//
-		// String myString = "Z"; //works, but is a string
-		// String myString2 = "Word"; //no  problem
-		// String myString3 = ""; //even 0 length strings are fine
-		// String myString4 = null; //allowed but different from ""
-		//
-		// compare characters with ==
-		if(word.charAt(middleIndex) == 'Q') {
-			return true;
-		} else {
-			return false;
-		}
-		// the above code could be written more briefly as
-		// return word.charAt(middleIndex) == 'Q';
+		if( word.length() % 2 == 0 ) return false;
+		return ( word.charAt( word.length() / 2 ) == 'Q' );
 	}
 	
 	/**
@@ -86,8 +60,8 @@ public class StringProbs {
 	 * "" returns false
 	 */	
 	public static boolean firstMatchesLast(String input) {
-		// YOU solve this one
-		return false;
+		if ( input.length() == 0 ) return false;
+		return input.charAt( 0 ) == input.charAt( input.length() - 1 );
 	}
 
 	/**
@@ -100,14 +74,8 @@ public class StringProbs {
 	 * "abc" & "abc" returns false
 	 */	
 	public static boolean first4Match(String one, String two) {
-		if(one.length() < 4 || two.length() < 4) {
-			return false;
-		}
-		if(one.substring(0, 4).equals(two.substring(0, 4))) {
-			return true;
-		} else {
-			return false;
-		}
+		if( Math.min( one.length(), two.length() ) < 4 ) return false;
+		return one.substring( 0, 4 ).equals( two.substring( 0, 4 ) );
 		// above could be written more briefly as
 		// return one.substring(0, 5).equals(two.substring(0, 5));
 	}
@@ -121,10 +89,9 @@ public class StringProbs {
 	 * "foobar" returns false
 	 * "foofoofoo" returns false
 	 */	
-	public static boolean isDoubled(String input) {
-		// YOU solve this one
-		return false;
+	public static boolean isDoubled( String input ) {
+		if ( input.length() % 2 == 1 ) return false;
+		return input.substring( 0, input.length()/2 ).equals( input.substring( input.length()/2, input.length() ) );
 	}
-	
-	
+
 }

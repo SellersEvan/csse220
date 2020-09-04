@@ -37,8 +37,14 @@ public class LoopProbs {
 	 * 
 	 */
 	public static long fact(int num) {
-		// TODO: Please provide an implementation for this one
-		return 0;
+		long result = 1;
+
+		while ( num > 0 ) {
+			result *= num;
+			num--;
+		}
+
+		return result;
 	}
 	
 	/**
@@ -77,9 +83,17 @@ public class LoopProbs {
 	 * "Heeololeo" returns "Hello"
 	 * null returns ""
 	 */
-	public static String stringBits(String str) {
-		// TODO: Please provide an implementation for this one
-		return null;
+	public static String stringBits( String str ) {
+		if ( str == null ) return "";
+
+		String result = "";
+
+		for ( int i = 0; i < str.length(); i += 2 ) {
+			result += str.charAt( i );
+			
+		}
+
+		return result;
 	}
 
 	
@@ -114,6 +128,11 @@ public class LoopProbs {
 		
 		return count;
 	}
+
+
+	public static int countX( String str ) {
+		return str.split( "x", -1 ).length - 1;
+	}
 	
 	/**
 	 * Returns true if every "x" appear in pair.
@@ -126,10 +145,12 @@ public class LoopProbs {
 	 * "axaxax" should return false
 	 * "xxxx" should return true
 	 * "aaxxxb" should return false because the last x is followed by b
+	 * "axxxaxxx" false
+	 * "axxaxxx" false
 	 */
 	public static boolean pairedX(String str) {
-		// TODO: Please provide an implementation for this one
-		return false;
+		if ( countX( str ) == 0 ) return false;		
+		return ( countX( str.replace( "xx", "" ) ) == 0 );
 	}
 
 	

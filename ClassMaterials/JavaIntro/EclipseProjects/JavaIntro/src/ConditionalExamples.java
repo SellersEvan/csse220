@@ -31,7 +31,7 @@ public class ConditionalExamples {
 	 * just multiply several times
 	 */
 	public static int computedCubed(double numberToCube) {
-		return 0;
+		return (int)Math.pow( numberToCube, 3);
 	}
 
 	/**
@@ -69,7 +69,10 @@ public class ConditionalExamples {
 	 * see how that compares to the real value.
 	 */
 	public static void guessCubeRoot(double number, double guess) {
-		
+		double cubed = (double)computedCubed( guess );
+		if ( number == cubed ) System.out.println( "Perfect" );
+		if ( number < cubed ) System.out.println( "Lower" );
+		if ( number > cubed ) System.out.println( "Higher" );
 	}
 	
 	/**
@@ -82,6 +85,7 @@ public class ConditionalExamples {
 	 * second.
 	 */
 	public static boolean isWayBigger (int bigger, int smaller) {
+		if ( bigger > smaller * 100  ) return true;
 		return false;
 	}
 	
@@ -96,15 +100,24 @@ public class ConditionalExamples {
 	 * Solve this one yourself
 	 */
 	public static boolean isGreaterThan3 (int one, int two, int three) {
+		if ( Math.max( one, Math.max( two, three ) ) > 3 ) return true;
 		return false;
 	}
 	
 	public static void main(String[] args) {
 		
-		System.out.println("Average of 3 4 5 is " + computeAverage(3, 4, 5));
-		System.out.println("Average of 3 4 6 is " + computeAverage(3, 4, 6));
+		// Guess Cube Test
+		guessCubeRoot(27,2.5); // would print "Higher"
+		guessCubeRoot(27,3.3); // would print "Lower"
+		guessCubeRoot(27,3);   // would print "Perfect"
+
+
+		System.out.println( computedCubed( 2 ) );
+
+		// System.out.println("Average of 3 4 5 is " + computeAverage(3, 4, 5));
+		// System.out.println("Average of 3 4 6 is " + computeAverage(3, 4, 6));
 		
-		printDivisibleBy3(12); // note in this case we print within the function
-		printDivisibleBy3(13);
+		// printDivisibleBy3(12); // note in this case we print within the function
+		// printDivisibleBy3(13);
 	}
 }
