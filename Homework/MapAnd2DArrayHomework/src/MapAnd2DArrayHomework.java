@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+// import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -33,7 +34,23 @@ public class MapAnd2DArrayHomework {
 	 * 
 	 */
 	public static char mostCommonCharacter(String input) {
-		return 'Q';
+
+		HashMap<Character, Integer> results = new HashMap<Character, Integer>();
+		char largestChar = input.charAt( 0 );
+		int largestCount = 0; 
+
+		for ( char ch : input.toCharArray() ) {
+			results.put( ch, ( results.containsKey( ch ) ? results.get( ch ) + 1 : 0 ) );
+		}
+
+		for( HashMap.Entry<Character, Integer> entry : results.entrySet() ) {
+			if ( entry.getValue() > largestCount ) {
+				largestChar = entry.getKey();
+				largestCount = entry.getValue();
+			}
+		}
+
+		return (char)largestChar;
 	}
 	
 	/**
@@ -53,8 +70,14 @@ public class MapAnd2DArrayHomework {
 	 * @return a copy of the hashmap with keys and values exchanged
 	 */
 	public static HashMap<String,ArrayList<Integer>> reverseHashmap(HashMap<Integer,String> initialMap) {
-		
-		return null;
+		HashMap<String, ArrayList<Integer>> results = new HashMap<String, ArrayList<Integer>>();
+
+		for ( HashMap.Entry<Integer,String> entry : initialMap.entrySet() ) {
+			if ( !results.containsKey( entry.getValue() ) ) results.put( entry.getValue(), new ArrayList<Integer>() );
+			results.get( entry.getValue() ).add( entry.getKey() );
+		}
+
+		return results;
 	}
 	
 	/**
@@ -107,6 +130,21 @@ public class MapAnd2DArrayHomework {
 	 * @return city that had a temperature drop
 	 */
 	public static String getTemperatureDropCity(int[] temps, String[] tempCity) {
+		HashMap<String, ArrayList<Integer>> cityMap = new HashMap<String, ArrayList<Integer>>();
+
+		// Generate the Map
+		for ( int i = 0; i < temps.length; i++ ) {
+			if ( !cityMap.containsKey( tempCity[ i ] ) ) cityMap.put( tempCity[ i ], new ArrayList<Integer>() );
+			cityMap.get( tempCity[ i ] ).add( temps[ i ] );
+		}
+
+		// Check for lower temp between arrays
+		for ( HashMap.Entry<String, ArrayList<Integer>> entry : cityMap.entrySet() ) {
+			for ( int i = 1; i < entry.getValue().size(); i++ ) {
+				if ( entry.getValue().get( i - 1 ) > entry.getValue().get( i ) ) return entry.getKey();
+			}
+		}
+
 		return null;
 	}
 	
@@ -138,7 +176,16 @@ public class MapAnd2DArrayHomework {
 	 * @return number of courses before you can take given course, or -1 if it is in a pre-req loop
 	 */
 	public static int getNumberOfCoursesToTake(HashMap<String,String> courseMap, String course) {
-		return 0;
+		String classn = course;
+		ArrayList<String> prereq = new ArrayList<String>();
+
+		while ( !courseMap.get( classn ).equals( "" ) || !courseMap.containsKey( classn ) ) {
+			if ( prereq.contains(courseMap.get( classn ) ) ) return -1;
+			prereq.add( courseMap.get( classn ) );
+			classn = courseMap.get( classn );
+		}
+
+		return prereq.size();
 	}
 	
 	/**
@@ -166,8 +213,13 @@ public class MapAnd2DArrayHomework {
 	 * @return true if it is diagonal, false otherwise
 	 */
 	public static boolean isDiagonal(int[][] data) {
-		
-		return false;
+		for ( int col = 0; col < data.length; col++ ) {
+			for ( int row = 0; row < data[ col ].length; row++ ) {
+				if ( col != row && data[ col ][ row ] != 0 ) return false;
+			}
+		}
+
+		return true;
 	}
 	
 	/**
@@ -205,8 +257,25 @@ public class MapAnd2DArrayHomework {
 	 * @return the length of the longest sequence
 	 */
 	public static int longestRepeatSequence(char[][] data) {
-		
-		return 0;
+		char currentchar = data[ 0 ][ 0 ];
+		int  currentWrap = 0;
+		int  largestWrap = 0;
+
+		for ( int row = 0; row < data.length; row++ ) {
+			for ( int col = 0; col < data[ row ].length; col++ ) {
+				if ( currentchar == data[ row ][ col ] ) {
+					currentWrap++;
+				} else {
+					if ( currentWrap > largestWrap ) largestWrap = currentWrap;
+					currentchar = data[ row ][ col ];
+					currentWrap = 1;
+				}
+			}
+		}
+
+		if ( currentWrap > largestWrap ) largestWrap = currentWrap;
+
+		return largestWrap;
 	}
 	
 	/**
@@ -224,7 +293,14 @@ public class MapAnd2DArrayHomework {
 	 * @return a single string made of all the characters in each column.
 	 */
 	public static String stringFromColumns(char[][] data) {
-		return "replace this";
+		String result = "";
+		for ( int row = 0; row < data[ 0 ].length; row++ ) {
+			for ( int col = 0; col < data.length; col++ ) {
+			
+				result += data[ col ][ row ];
+			}
+		}
+		return result;
 	}
 	
 	
@@ -277,7 +353,19 @@ public class MapAnd2DArrayHomework {
 	 */
 	public static char[][] distanceArray(int row, int col, int distance) {
 		
-		return null;
+		char[][] charMap = new char[ 10 ][ 10 ];
+
+		for ( int _row = 0; _row < charMap.length; _row++ ) {
+			for ( int _col = 0; _col < charMap[ _row ].length; _col++ ) {
+				if ( Math.sqrt( Math.pow( _col - col, 2 ) + Math.pow( _row - row, 2 ) ) <= (double)distance ) {
+					charMap[ _row ][ _col ] = 'x';
+				} else {
+					charMap[ _row ][ _col ] = '.';
+				}
+			}
+		}
+
+		return charMap;
 	}
 	
 	/**
