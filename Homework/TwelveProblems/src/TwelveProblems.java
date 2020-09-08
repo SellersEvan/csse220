@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class TwelveProblems {
@@ -17,7 +18,7 @@ public class TwelveProblems {
 	 * Google for Java square root to figure out how to do it 
 	 */
 	public static double distanceFromOrigin(double x, double y) {
-		return 0;
+		return Math.sqrt( Math.pow( x, 2 ) + Math.pow( y, 2 ) );
 	}
 	
 	/**
@@ -50,7 +51,7 @@ public class TwelveProblems {
 	 * @return
 	 */
 	public static boolean secondDigit5(int input) {
-		return false;
+		return ( input % 100 ) >= 50 && ( input % 100 ) <= 59;
 	}
 	
 	/**
@@ -75,7 +76,7 @@ public class TwelveProblems {
 	 * Requires if statements, strings
 	 */
 	public static boolean endsWithUpperCaseLetter(String input) {
-		return false;
+		return ( !input.equals( "" ) ) ? Character.isUpperCase( input.charAt( input.length() - 1 ) ) : false;
 	}
 	
 	/**
@@ -97,7 +98,13 @@ public class TwelveProblems {
 	 * Requires: for loops
 	 */
 	public static double pow(int num, int power) {
-		return 0;
+		double result = 1.0;
+
+		for ( int i = 0; i < Math.abs( power ); i++ ) {
+			result *= num;
+		}
+
+		return ( power < 0 ) ? ( 1 / result ) : result;
 	}
 	
 	/**
@@ -129,7 +136,12 @@ public class TwelveProblems {
 	 * Requires: for loops or while loops, strings
 	 */
 	public static int firstDifference(String one, String two) {
-		return 0;
+
+		for ( int i = 0; i < one.length(); i++ ) {
+			if ( one.charAt( i ) != two.charAt( i ) ) return i;
+		}
+
+		return -1;
 	}
 	
 	/**
@@ -150,7 +162,18 @@ public class TwelveProblems {
 	 * Requires: for loops, strings
 	 */
 	public static char mostCommonCharacter(String input) {
-		return '?';
+		char topChar = input.charAt( 0 );
+		int  topCount = 0;
+
+		for ( char ch: input.toCharArray() ) {
+			int tmpCount = input.length() - input.replace( String.valueOf( ch ), "" ).length();
+			if ( tmpCount > topCount ) {
+				topCount = tmpCount;
+				topChar = ch;
+			}
+		}
+
+		return topChar;
 	}
 	
 	
@@ -168,7 +191,12 @@ public class TwelveProblems {
 	 * Don't forget about the modulus operator (%)
 	 */
 	public static int firstDivisibleBy77(int[] numbers) {
-		return 0;
+
+		for ( int num : numbers ) {
+			if ( num % 77 == 0 ) return num;
+		}
+
+		return -1;
 	}
 	
 	
@@ -187,7 +215,15 @@ public class TwelveProblems {
 	 * Requires: arrays, for loops
 	 */
 	public static int[] powersOfTwo(int maxExponent) {
-		return null;
+		if ( maxExponent < 0 ) return new int[ 0 ];
+
+		int result[] = new int[ maxExponent + 1 ]; 
+
+		for ( int i = 0; i <= maxExponent; i++ ) {
+			result[ i ] = (int)Math.pow( 2, i );
+		}
+
+		return result;
 	}
 	
 	/**
@@ -203,7 +239,14 @@ public class TwelveProblems {
 	 *   Requires: arrays, for loops
 	 */
 	public static int[] maxArray(int[] one, int[] two) {
-		return null;
+		int result[] = new int[ one.length ];
+
+		for ( int i = 0; i < one.length; i++ ) {
+			result[ i ] = Math.max( one[ i ], two[ i ] );
+		}
+
+
+		return result;
 	}
 	
 	/**
@@ -220,7 +263,27 @@ public class TwelveProblems {
 	 *  Requires: arrays, nested for loops
 	 */
 	public static int timesOccur(int[] shorter, int[] longer) {
-		return 0;
+		int occur = 0;
+
+		for ( int i = 0; i <= longer.length - shorter.length; i++ ) {
+			if ( Arrays.equals( Arrays.copyOfRange( longer, i, i + shorter.length ), shorter ) ) occur++;
+		}
+
+		return occur;
+
+		// incase your really wanted nested for loops
+		/*
+		int occur = 0;
+
+		for ( int i = 0; i <= longer.length - shorter.length; i++ ) {
+			for ( int j = 0; j < shorter.length; j++ ) {
+				if ( longer[ i + j ] != shorter[ j ] ) j = shorter.length * 2;
+				if ( j == shorter.length - 1 ) occur++;
+			}
+		}
+
+		return occur;
+		*/
 	}
 	
 	/**
@@ -243,7 +306,14 @@ public class TwelveProblems {
 	 * 
 	 */
 	public static ArrayList<String> doubleDouble(ArrayList<String> input) {
-		return null;
+		ArrayList<String> output = new ArrayList<String>();
+
+		for ( String word : input ) {
+			if ( word.equals( "double" ) ) output.add( word );
+			output.add( word );
+		}
+
+		return output;
 	}
 	
 	/**
@@ -259,7 +329,13 @@ public class TwelveProblems {
 	 *   threeCharacterStrings(["ab"]) returns []
 	 */
 	public static ArrayList<String> threeCharacterStrings(String input) {
-		return null;
+		ArrayList<String> output = new ArrayList<String>();
+
+		for ( int i = 0; i < ( input.length() - 2 ); i++ ) {
+			output.add( input.substring( i, i + 3 ) );
+		}
+
+		return output;
 	}
 	
 	
