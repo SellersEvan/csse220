@@ -31,7 +31,14 @@ public class MapProblems {
 	 * @return duplicated nickanme or null
 	 */
 	public static String duplicateNicknames(String[] names, String[] nicknames) {
-		
+		HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+
+		for ( int i = 0; i < names.length; i++ ) {
+			if ( !map.containsKey( nicknames[ i ] ) ) map.put( nicknames[ i ], new ArrayList<String>() );
+			map.get( nicknames[ i ] ).add( names[ i ] );
+			if ( map.get( nicknames[ i ] ).size() > 1 ) return nicknames[ i ];
+		}
+
 		return null;
 	}
 	
@@ -54,8 +61,16 @@ public class MapProblems {
 	 * @return the score of the given hand
 	 */
 	public static int computeScore(String hand) {
+		HashMap<String, Integer> cardCount = new HashMap<String, Integer>();
+		int score = 0;
 
-		return 0;
+		for ( String ch : hand.split("") ) {
+			if ( !cardCount.containsKey( ch ) ) cardCount.put( ch, 0 );
+			cardCount.put( ch, cardCount.get( ch ) + 1 );
+			score += cardCount.get( ch );
+		}
+
+		return score;
 	}
 	
 	/**
@@ -73,8 +88,13 @@ public class MapProblems {
 	 * 
 	 */
 	public static HashMap<String,Integer> reverseMap(HashMap<Integer,String> input) {
-		
-		return null;
+		HashMap<String,Integer> newMap = new HashMap<String,Integer>();
+
+		for ( HashMap.Entry<Integer,String> entity : input.entrySet() ) {
+			newMap.put( entity.getValue(), entity.getKey() );
+		}
+
+		return newMap;
 	}
 	
 	/**
@@ -105,8 +125,22 @@ public class MapProblems {
 	 * @param startCity 
 	 * @param endCity 
 	 * @return true if there is a way to get from one city to another; false otherwise.
+	 * 
+	 * 
+	 * had some trouble on this one so got some insperation from answer key and made it more efficent
+	 * 
 	 */
 	public static boolean canTravelTo(HashMap<String,ArrayList<String>> cities, String startCity, String endCity) {
+		ArrayList<String> current = new ArrayList<String>();
+		ArrayList<String> checked = new ArrayList<String>();
+		current.add( startCity );
+
+		while ( current.size() != 0 ) {
+			if ( current.contains( endCity ) ) return true;
+			if ( checked.contains( current.get( 0 ) ) ) return false;
+			current.addAll( cities.get( current.get( 0 ) ) );
+			checked.add( current.remove( 0 ) );			
+		}
 
 		return false;
 	}

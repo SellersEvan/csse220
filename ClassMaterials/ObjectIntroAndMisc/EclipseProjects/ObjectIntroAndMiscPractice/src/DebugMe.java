@@ -13,17 +13,19 @@ public class DebugMe {
 	 * n!/(n-k)!
 	 */
 	public static int kPermutations(int n, int k) {
-		int nFact = 1;
+		long nFact = 1;
 		for(int i = 2; i <= n; i++) {
-			nFact = nFact*i;
+			nFact *= i;
 		}
-		int nMinusKFact = 1;
-		for(int j = 2; j <= n - k; j++) {
-			nMinusKFact = nMinusKFact*j;
+
+		long nMinusKFact = 1;
+		for(int j = 2; j <= (n - k); j++) {
+			nMinusKFact *= j;
 		}
 		
-		return nFact/nMinusKFact;
+		return (int)(nFact/nMinusKFact);
 	}
+
 
 	/**
 	 * 
@@ -39,9 +41,8 @@ public class DebugMe {
 	 *  
 	 */
 	public static String uppercaseIfExclaimation(String sentence) {
-
-		if(sentence.charAt(sentence.length() - 1) == '!') {
-			sentence.toUpperCase();
+		if(sentence.charAt( sentence.length() - 1 ) == '!') {
+			sentence = sentence.toUpperCase();
 		} 
 		return sentence;
 	}
@@ -63,21 +64,19 @@ public class DebugMe {
 	 * @return
 	 */
 	public static boolean isArrayDoubled(int[] input) {
+		if ( input.length % 2 == 1 ) return false;
 
-		int[] firstHalf = new int[input.length/2];
-		int[] secondHalf = new int[input.length/2];
-		for(int i = 0; i < input.length/2; i++) {
-			firstHalf[i] = input[i];
-			secondHalf[i] = input[input.length/2 + i];
+		for( int i = 0; i < input.length / 2; i++ ) {
+			if ( input[i] != input[input.length/2 + i] ) return false;
 		}
-		boolean result = firstHalf.equals(secondHalf);
-		return result;
+
+		return true;
 	}
 
 	
 	public static int praticeCreatingExceptionBreakpoint() {
 		int[] foo = {1,2,3};
-		return foo[100];
+		return foo[2];
 	}
 
 	

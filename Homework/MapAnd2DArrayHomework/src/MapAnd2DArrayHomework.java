@@ -410,6 +410,28 @@ public class MapAnd2DArrayHomework {
 	 * @return height where the ball stops
 	 */
 	public static int ballRestElevation(int[][] map) {
-		return 0;
+
+		int posx = 1;
+		int posy = 1;
+
+
+		while (
+			map[ posy ][ posx ] > map[ posy + 1 ][ posx ] ||
+			map[ posy ][ posx ] > map[ posy ][ posx + 1 ] ||
+			map[ posy ][ posx ] > map[ posy ][ posx - 1 ] ||
+			map[ posy ][ posx ] > map[ posy - 1 ][ posx ]
+		) {
+			int right = map[ posy ][ posx + 1 ] - map[ posy ][ posx ]; // posx++
+			int left  = map[ posy ][ posx - 1 ] - map[ posy ][ posx ]; // posx--
+			int up    = map[ posy + 1 ][ posx ] - map[ posy ][ posx ]; // posy++
+			int down  = map[ posy - 1 ][ posx ] - map[ posy ][ posx ]; // posy--
+
+			if ( right < Math.min(Math.min( left, up ), down ) ) { posx++; continue; }
+			if ( left < Math.min(Math.min( right, up ), down ) ) { posx--; continue; }
+			if ( up < Math.min(Math.min( right, left ), down ) ) { posy++; continue; }
+			if ( down < Math.min(Math.min( right, left ), up ) ) { posy--; continue; }
+		}
+
+		return map[ posy ][ posx ];
 	}
 }
