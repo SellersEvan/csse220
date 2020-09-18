@@ -1,5 +1,11 @@
+/**
+ * 		Class: CSSE220
+ * 		Author: Evan Sellers
+ * 		Use: Practice promblems for Maps and 2D arrays
+ * 		
+ */
+
 import java.util.ArrayList;
-// import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -413,7 +419,6 @@ public class MapAnd2DArrayHomework {
 
 		int posx = 1;
 		int posy = 1;
-
 
 		while (
 			map[ posy ][ posx ] > map[ posy + 1 ][ posx ] ||

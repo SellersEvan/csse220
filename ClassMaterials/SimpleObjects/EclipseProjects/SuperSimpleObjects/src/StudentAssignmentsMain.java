@@ -1,7 +1,7 @@
 /**
  * Create instances of StudentAssignments and invoke methods on them.
  * 
- * @author <YOUR_NAME_GOES HERE>. Created Dec 9, 2013.
+ * @author Evan Sellers. Created Dec 9, 2013.
  */
 public class StudentAssignmentsMain {
 
@@ -13,24 +13,26 @@ public class StudentAssignmentsMain {
 	 */
 	public static void main(String[] args) {
 
-		/*
-		 * TODO: Uncomment this code to get started with StudentAssignments
-		 * 
-		 * StudentAssignments one = new StudentAssignments("John Doe");
-		 * StudentAssignments two = new StudentAssignments(); //default name is
-		 * Studenty McStudenton
-		 * 
-		 * one.addAssignment("TwelveProblems", 95);
-		 * two.addAssignment("TwelveProblems", 80);
-		 * 
-		 * one.addAssignment("WordGames", 99); two.addAssignment("WordGames",
-		 * 78);
-		 * 
-		 * one.addAssignment("Faces", 92); two.addAssignment("Faces", 0);
-		 * 
-		 * one.printGradeReport(); System.out.println(); //blank line
-		 * two.printGradeReport();
-		 */
+		
+		// TODO: Uncomment this code to get started with StudentAssignments
+		
+		StudentAssignments one = new StudentAssignments("John Doe");
+		StudentAssignments two = new StudentAssignments(); //default name is Studenty McStudenton
+		
+		one.addAssignment("TwelveProblems", 95);
+		two.addAssignment("TwelveProblems", 80);
+		
+		one.addAssignment("TwelveProblems", 99);
+		two.addAssignment("WordGames", 78);
+		
+		one.addAssignment("TeamGradebook", 92);
+		two.addAssignment("Faces", 0);
+		
+		one.printGradeReport();
+		System.out.println(); //blank line
+		two.printGradeReport();
+
+
 
 		/*
 		 * This code should print out:
@@ -45,5 +47,7 @@ public class StudentAssignmentsMain {
 		 */
 
 	}
+
+
 
 }

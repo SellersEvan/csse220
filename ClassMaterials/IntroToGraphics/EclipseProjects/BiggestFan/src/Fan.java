@@ -49,6 +49,13 @@ public class Fan {
 	 */
 	public void drawOn(Graphics2D graphics2) {
 		// TODO: implement
+
+		// for ( int i = 0; i < numberOfBlades; i++ ) {
+		// 	graphics2.drawRect( centerX, centerY, 10.0, bladeLength );
+
+		// }
+
+		
 	}
 
 	// TODO: Add a helper method for drawing fan blades.

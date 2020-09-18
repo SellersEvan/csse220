@@ -21,14 +21,8 @@ public class RotateComponent extends JComponent {
 		Graphics2D g2 = (Graphics2D) g;
 		
 		
-		
-		g2.translate(200,200);
-		
-		//drawing a rect so you can see the inital
-		//pos of the face without rotation
-		g2.setColor(Color.PINK);
-		g2.drawRect(0, 0, 200, 150);
-		g2.setColor(Color.BLACK);
+
+	
 
 		
 		// TODO 1: Play with rotation so you get a feel how it works
@@ -41,8 +35,13 @@ public class RotateComponent extends JComponent {
 		// not with 0,0 as the upper left corner
 		// HINT 2: You may have to adjust the translate or the
 		// Pink rectangle too
-		double degreesToRotate = 30;
-		g2.rotate(Math.toRadians(degreesToRotate));
+		double radiansToRotate = Math.toRadians( 30 );
+		g2.translate(
+				( int )( ( getWidth() / 2 - 100 ) + ( ( Math.sin( radiansToRotate ) * 200 ) / 2 ) ),
+				( int )( ( getHeight() / 2 - 75 ) - ( ( Math.sin( radiansToRotate ) * 150 ) / 2 ) )
+			);
+
+		g2.rotate( radiansToRotate );
 
 		// draws a face, with upper left hand corner 0 0
 		// you need to edit this code for TODO2
@@ -52,9 +51,11 @@ public class RotateComponent extends JComponent {
 		g2.drawRect(60, 80, 80, 40);
 		
 		//WARNING: be sure to always undo any translations you may have done
-		g2.rotate(-Math.toRadians(degreesToRotate));
-		g2.translate(-200, -200);
-		
+		g2.rotate( - radiansToRotate );
+		g2.translate(
+				- ( int )( ( getWidth() / 2 - 100 ) + ( ( Math.sin( radiansToRotate ) * 200 ) / 2 ) ),
+				- ( int )( ( getHeight() / 2 - 75 ) - ( ( Math.sin( radiansToRotate ) * 150 ) / 2 ) )
+			);		
 	}
 	
 	

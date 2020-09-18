@@ -33,29 +33,21 @@ public class HourTimerComponent extends JComponent {
 		bigClock.drawOn(g2);
 		
 		
-		
 		//Stage 2
-		
-		/* uncomment this code when you're ready to start stage 2
-		
 		int clockRadius = 50;
 		int clockCenterY = 50;
 		for(int clockCenterX = 350; clockCenterX < 600; clockCenterX += 100) {
 			HourTimer upperRightClock = new HourTimer(clockCenterX, clockCenterY, clockRadius);
 			upperRightClock.drawOn(g2);
 		}
+
 		//draw a 20x20 clock in the upper left hand corner
-		
 		HourTimer upperLeftClock = new HourTimer(10, 10, 10);
 		upperLeftClock.drawOn(g2);
 		
-		*/
 		
 		
 		//Stage 3
-		
-		/* uncomment this code when you're ready to start stage 3
-		 
 		int clockTime = 0;
 		clockCenterY = 550;
 		for(int clockCenterX = 50; clockCenterX < 600; clockCenterX += 100) {
@@ -65,8 +57,6 @@ public class HourTimerComponent extends JComponent {
 			clockTime += 10;
 		}
 		
-		*/
-
 	}
 	
 	/**

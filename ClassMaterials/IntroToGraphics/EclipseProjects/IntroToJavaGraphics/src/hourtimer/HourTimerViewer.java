@@ -28,7 +28,7 @@ public class HourTimerViewer {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		
-		frame.setTitle("Tic Toc");
+		frame.setTitle("Hour Timer");
 		HourTimerComponent c = new HourTimerComponent();
 		c.setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		frame.add(c);

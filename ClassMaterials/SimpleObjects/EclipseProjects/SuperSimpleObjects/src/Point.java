@@ -18,7 +18,7 @@ public class Point {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	//Note: main is a static method
 	public static void main(String[] args) {
 		Point a = new Point( 0, 0 );
@@ -41,8 +41,7 @@ public class Point {
 	 * @return distance between this Point and some other Point
 	 */
 	private double distanceTo(Point other) {
-		//TODO complete this method
-		return 0;
+		return distanceBetween( this, other );
 	}
 
 	/**
@@ -54,8 +53,7 @@ public class Point {
 	 * @return distance between two Points
 	 */
 	private static double distanceBetween(Point a, Point b) {
-		//TODO complete this method
-		return 0;
+		return distanceFormulaCalc( a.x, b.x, a.y, b.y );
 	}
 	
 	/** 
@@ -66,9 +64,7 @@ public class Point {
 	 * @return distance between (x1,y1) and (x2,y2)
 	 */
 	public static double distanceFormulaCalc(double x1, double x2, double y1, double y2 ) {
-		double xDiff = x1-x2;
-		double yDiff = y1-y2;
-		return Math.sqrt(xDiff*xDiff + yDiff*yDiff);
+		return Math.sqrt( Math.pow( x1 - x2, 2 ) + Math.pow( y1 - y2, 2 ) );
 	}
 	
 }

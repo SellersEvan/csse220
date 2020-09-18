@@ -1,6 +1,17 @@
+/**
+ * 		class: CSSE220
+ * 		author: Evan Sellers
+ * 		date: 9/17/2020
+ * 
+ * 		jclass: TeamGradebook
+ * 		use: this will deal with linking students
+ * 			 and teams togeather. It will allow 
+ * 			 teams to have grades and access those
+ * 			 teams.
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
-
 
 public class TeamGradebook {
 
@@ -13,172 +24,209 @@ public class TeamGradebook {
 	 * You'll want to be sure you initialize students and teams here.
 	 */
 	public TeamGradebook() {
-		//TODO: add initialization code
+		students = new ArrayList<Student>();
+		teams    = new ArrayList<Team>();
+	}
+
+
+	/** GET STUDENT (PRIVATE)
+	 * Will find a student in the array by the name,
+	 * if there is no student with that name will return 
+	 * null.
+	 * 
+	 * 	@param studentName { String } the unique name for the student
+	 * 	@return student { Student } instance of student
+	 */
+	private Student getStudentByName( String studentName ) {
+		for ( Student _student : students ) {
+			if ( _student.getName().equals( studentName ) ) return _student;
+		}
+		return null;
 	}
 	
-	/**
-	 * Adds a student for grade tracking.
+
+	/** GET TEAM (PRIVATE)
+	 * Will find a team in the array by the name,
+	 * if there is no team with that name will return 
+	 * null.
 	 * 
-	 * You can assume the student name is unique.  If the student
-	 * name is duplicated, feel free to do whatever you want -
-	 * error, act buggy, whatever.
-	 * 
-	 * @param studentName name to add
-	 * @return "ok" if successful
+	 * 	@param teamName { String } the unique name for the team
+	 * 	@return team { Team } instance of team
 	 */
-	private String handleAddStudent(String studentName) {
-		// HINT
-		// first create a new student object with the given name
-		// then add it to the students list in the gradebook
-		// then return "ok"
+	private Team getTeamByName( String teamName ) {
+		for ( Team _team : teams ) {
+			if ( _team.getName().equals( teamName ) ) return _team;
+		}
 		return null;
 	}
 
-	/**
-	 * Adds an absence to a particular student's record.
+
+	/** CALCULATE AVERAGE (PRIVATE)
+	 * 	This will calculate the average of an array list of doubles.
 	 * 
-	 * Absence count should start at 0 and should increase by one
-	 * everytime add-absence is called
-	 * 
-	 * This method should always print ok, unless the student doesn't
-	 * exist in which case you can error however you like.
-	 * 
-	 * HINT: It's probably worthwhile to write a getStudentByName method
-	 * that returns the student object from your storage that matches
-	 * a particular name.  You'll use it for get-average too.  But it's
-	 * not required.
-	 * 
-	 * 
-	 * @param studentName
-	 * @return
+	 * @param nums { ArrayList<Double> } list of all numbers to average
+	 * @return average { Double } average of the numbers
 	 */
-	private String handleAddAbsence(String studentName) {
-		
-		return null;
+	private Double calcAverage( ArrayList<Double> nums ) {
+		Double total = 0.0;
+		for ( Double num : nums ) {
+			total += num;
+		}
+
+		return ( total / nums.size() );
 	}
 
-	/**
-	 * Returns a number of absences in a particular student's record.
-	 *
-	 * Absence count should start at 0 and should increase by one
-	 * everytime add-absence is called
+
+	/** ADD STUDENTS (PUBLIC)
+	 * 	Creates new instance of Students and adds
+	 * 	the new student to the array. If the user
+	 * 	already exists will return error.
 	 * 
-	 * To convert the number of absences to a string, do this:
+	 * @requires getStudentByName of this => for aquire student instance
 	 * 
-	 * String resultAsString = Integer.toString(myNum);
-	 * 
-	 * 
-	 * @param studentName
-	 * @return
+	 * @param studentName { String } the unique name for the student
+	 * @return message { String } message "ok" for success
 	 */
-	private String handleGetAbsences(String studentName) {
-		return null;
+	private String handleAddStudent( String studentName ) {
+		if ( getStudentByName( studentName ) != null ) return String.format( "fail: user '%s' already exists", studentName );
+		students.add( new Student( studentName ) );
+		return "ok";
 	}
 
-	
-	/**
-	 * Adds a team.
+
+	/** ADD ABSENCE (PUBLIC)
+	 * 	Adds an absence to a particular student's record. Will
+	 * 	return error message if the user doesn't exists
 	 * 
-	 * You can assume the student team name is unique.
+	 * @requires getStudentByName of this => for aquire student instance
 	 * 
-	 * (for individual assignment): the student names should be students 
-	 * that have been already added
+	 * @param studentName { String } the unique name for the student
+	 * @return message { String } message "ok" for success
+	 */
+	private String handleAddAbsence( String studentName ) {
+		Student _student = getStudentByName( studentName );
+		if ( _student == null ) return String.format( "fail: user '%s' doesn't exists", studentName );
+		_student.addAbsence();
+		return "ok";
+	}
+
+
+	/** GET ABSENCE (PUBLIC)
+	 * 	Returns a number of absences in a particular
+	 * 	student's record. Will return an integer as a 
+	 * 	string or a failure message if the user doesn't 
+	 * 	exist.
 	 * 
-	 * PAIR ASSIGNMENT: implicitly create students if they don't exist
+	 * @requires getStudentByName of this => for aquire student instance
 	 * 
-	 * @param teamName name of new team
-	 * @param memberNames a list of student names that belong to the team
+	 * @param studentName { String } the unique name for the student
+	 * @return int as String { String } numbers of absences
+	 */
+	private String handleGetAbsences( String studentName ) {
+		Student _student = getStudentByName( studentName );
+		if ( _student == null ) return String.format( "fail: user '%s' doesn't exists", studentName );
+		return String.valueOf( _student.getAbsence() );
+	}
+
+
+	/** ADD TEAM (PUBLIC)
+	 * 	This first check to makes sure that the team
+	 * 	name being added doesn't already exist. If the
+	 * 	team exists it will return a fail. Then it will
+	 * 	check the member list if the student doesn't exist
+	 * 	it will add the student. Then it will add the team
+	 * 	name to each student. It will then create the team 
+	 * 	and add all the users to it.
+	 * 
+	 * @param teamName { string } the unique name for the team
+	 * @param memberNames { ArrayList<String> } a list of student names that belong to the team
 	 * @return "ok" if success
 	 */
-	private String handleAddTeam(String teamName, ArrayList<String> memberNames) {
-		
-		// HINT: you'll want to pass Team an array of Students,
-		// not an array of student names
-		
-		// BONUS HINT: you'll probably want to implement the getStudentByNameMethod
-		// and use it in this function
-		
-		//TODO: Your code here
-		return null;
+	private String handleAddTeam( String teamName, ArrayList<String> memberNames ) {
+
+		// validate team name doesn't exist
+		Team _team = getTeamByName( teamName );
+		if ( _team != null ) return String.format( "fail: team '%s' already exists", teamName );
+
+		// validate student and add team
+		for ( String studentName : memberNames ) {
+			Student _student = getStudentByName( studentName );
+			if ( _student == null ) {
+				handleAddStudent( studentName );
+				_student = getStudentByName( studentName );
+			}
+			_student.addTeam( teamName );
+		}
+
+		// Add Students to team and create team
+		teams.add( new Team( teamName, memberNames ) );
+
+		return "ok";
 	}
 
-	/**
-	 * Returns the student from students with the particular name,
-	 * null otherwise (e.g., if the student does not exist).
-	 * 
-	 * You'll find this method handy when writing addTeam and getAverage.
-	 * 
-	 * @param name the name of the student for whom to search
-	 * @return student object with the name or null
-	 */
-	public  Student getStudentByName(String name) {
 
-		//TODO: Your code here		
-		return null;
-	}
-
-	/**
-	 * Adds a grade to all the students on the given team.
+	/** ADD GRADE (PUBLIC)
+	 * 	Will add a grade to a specific team. If the 
+	 * 	team doesn't exists will return an error.
 	 * 
-	 * You can assume the team has already been created.
-	 * 
-	 * @param teamName the team to add the grade to
-	 * @param grade the grade to add
+	 * @param teamName { String } the unique name for the team
+	 * @param grade { Double } the grade to add
 	 * @return "ok" if successful
 	 */
 	private String handleAddGrade(String teamName, double grade) {
-		//TODO: Your code here
-		return null;
+		Team _team = getTeamByName( teamName );
+		if ( _team == null ) return String.format( "fail: team '%s' doesn't exists", teamName );
+		_team.addGrade( grade );
+		return "ok";
 	}
 	
 	
-	/**
-	 * Returns the average for a particular student as a string.
+	/** GET STUDENT AVERAGE (PUBLIC)
+	 * 	This will first check to make sure the
+	 * 	user exists. If so it will get a list of
+	 * 	all the teams the user is apart of then 
+	 * 	get all those grades and average them.
 	 * 
-	 * NOTE the result should be ROUNDED to the nearest whole number
-	 * Check out Long.toString and Math.round
-	 * 
-	 * NOTE if a student has no grades, the student's average should be 0
-	 * 
-	 * @param studentName name of student
-	 * @return average grade as string, rounded to nearest whole number
+	 * @param studentName { String } the unique name for the student
+	 * @return average { String } int as string for student average
 	 */
-	private String handleGetAverage(String studentName) {
-		//TODO: Your code here
-		return null;
+	private String handleGetAverage( String studentName ) {
+		Student _student = getStudentByName( studentName );
+		if ( _student == null ) return String.format( "fail: user '%s' doesn't exists", studentName );
+
+		ArrayList<Double> grades = new ArrayList<>();
+		for ( String teamName : _student.getTeam() ) {
+			Team _team = getTeamByName( teamName );
+			if ( _team == null ) continue;
+			grades.addAll( _team.getGrades() );
+		}
+
+		return String.valueOf( ( int ) Math.round( calcAverage( grades ) ) );
 	}
-	
-	/**
-	 * Returns the team name with the best average on all grades for that team
+
+
+	/** BEST TEAM (PUBLIC)
+	 * 	Will return a string of the team with the best average
+	 * 	grade score. If there are no teams will return an error.
 	 * 
-	 * PAIR ASSIGNMENT
-	 * 
-	 * THIS PART OF THE ASSIGNMENT MAY BE done in pairs with another student.
-	 * Be sure to note who you paired with in a comment.  You don't have to
-	 * pair if you don't want to.
-	 * 
-	 * NOTE that "best team" is different from the team with the best students.
-	 * The average is for the grades FOR THAT TEAM - not including
-	 * other grades that students on that team might have.
-	 * 
-	 * Say, for example, there is a team that had one grade of 100.  Then 
-	 * that TEAM's average should be 100, even if each of the members of the 
-	 * team got grades with other groups.  You'll have to keep track of 
-	 * additional info to determine each team's average grades.
-	 * 
-	 * If a team has no grades, it's average should be considered to be 0.
-	 * 
-	 * If several teams have exactly the same average, any one of them may be
-	 * returned as the best group.
-	 * 
-	 * If no teams exist, you can return an error.
-	 * 
-	 * @return the name of the team with the best overall average
+	 * @return best team { String } team with best avg score
 	 */
 	private String handleGetBestTeam() {
-		//TODO: Your code here
-		return null;
+		if ( teams.size() == 0 ) return "fail: no teams exist";
+
+		String topTeamName  = "";
+		Double topTeamScore = -Double.MAX_VALUE;
+
+		for ( Team _team : teams ) {
+			if ( _team.averageGrade() >= topTeamScore ) {
+				topTeamName  = _team.getName();
+				topTeamScore = _team.averageGrade();
+			}
+		}
+
+		return topTeamName;
 	}
+
 	
 	/**
 	 * Decodes a command and invokes the right method.
@@ -196,53 +244,53 @@ public class TeamGradebook {
 		Scanner input = new Scanner(command);
 		String commandType = input.next();
 		
-		if(commandType.equals("add-student")) {
+		if( commandType.equals( "add-student" ) ) {
 			String studentName = input.next();
 			input.close();
-			return handleAddStudent(studentName);
+			return handleAddStudent( studentName );
 		}
 		
-		if(commandType.equals("add-absence")) {
+		if( commandType.equals( "add-absence" ) ) {
 			String studentName = input.next();
 			input.close();
-			return handleAddAbsence(studentName);
+			return handleAddAbsence( studentName );
 		}
 		
-		if(commandType.equals("get-absences")) {
+		if( commandType.equals( "get-absences" ) ) {
 			String studentName = input.next();
 			input.close();
-			return handleGetAbsences(studentName);
+			return handleGetAbsences( studentName );
 		}
 		
-		if(commandType.equals("add-team")) {
+		if( commandType.equals( "add-team" ) ) {
 			String teamName = input.next();
 			ArrayList<String> memberNames = new ArrayList<String>();
-			while(input.hasNext()) {
-				memberNames.add(input.next());
+			while( input.hasNext() ) {
+				memberNames.add( input.next() );
 			}
 			input.close();
-			return handleAddTeam(teamName, memberNames);
+			return handleAddTeam( teamName, memberNames );
 		}
 		
-		if(commandType.equals("add-grade")) {
+		if( commandType.equals( "add-grade" ) ) {
 			String teamName = input.next();
 			double grade = input.nextDouble();
 			input.close();
-			return handleAddGrade(teamName, grade);
+			return handleAddGrade( teamName, grade );
 		}
 		
-		if(commandType.equals("get-average")) {
+		if( commandType.equals( "get-average" ) ) {
 			String studentName = input.next();
 			input.close();
-			return handleGetAverage(studentName);
+			return handleGetAverage( studentName );
 		}
 		
-		if(commandType.equals("get-best-team")) {
+		if( commandType.equals( "get-best-team" ) ) {
 			input.close();
 			return handleGetBestTeam();
 		}
 		
-		if(commandType.equals("exit")) {
+		if( commandType.equals( "exit" ) ) {
 			System.exit(0);
 		}
 		
@@ -261,10 +309,10 @@ public class TeamGradebook {
 	 */
 	public static void main(String[] args) {
 		TeamGradebook book = new TeamGradebook();
-		System.out.println("Welcome to Team gradebook.  Enter commands.  Type 'exit' to end.");
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
-		while(true) {
+		System.out.println( "Welcome to Team gradebook.  Enter commands.  Type 'exit' to end." );
+		@SuppressWarnings( "resource" )
+		Scanner scanner = new Scanner( System.in );
+		while( true ) {
 			String commandLine = scanner.nextLine();
 			String result = book.handleCommand(commandLine);
 			System.out.println(result);
