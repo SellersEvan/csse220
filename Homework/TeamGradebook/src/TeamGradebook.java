@@ -242,6 +242,12 @@ public class TeamGradebook {
 	 */
 	public String handleCommand(String command) {
 		Scanner input = new Scanner(command);
+
+		if ( !input.hasNext() ) {
+			input.close();
+			return "Unknown command";
+		}
+
 		String commandType = input.next();
 		
 		if( commandType.equals( "add-student" ) ) {

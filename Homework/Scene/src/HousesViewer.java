@@ -1,23 +1,15 @@
-import java.awt.Dimension;
+/**
+ *      Class: CSSE220
+ *      Author: Evan Sellers
+ *      Usage: House Scene Viewer
+ */
 
+import java.awt.Dimension;
 import javax.swing.JFrame;
 
-/**
- * Draws a bunch of houses, via the HousesComponent and Houses classes.
- * 
- * @author Matt Boutell. 
- *
- */
 public class HousesViewer {
 	public static final Dimension HOUSES_VIEWER_SIZE = new Dimension(500, 400);
 	
-	/**
-	 * Constructs and displays the JFrame which displays Houses via a
-	 * HousesComponent. 
-	 * 
-	 * @param args
-	 *            Command-line arguments, ignored here.
-	 */
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 
