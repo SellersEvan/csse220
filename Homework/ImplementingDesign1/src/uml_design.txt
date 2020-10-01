@@ -1,0 +1,40 @@
+@startuml
+class QuizMain {
+     {method} getQuiz( quizID: string ): Quiz
+     {method} getQuestion( questionID: string ): Quiz
+     {method} newQuiz( id: int, name: String ) success: boolean
+     {method} newQuestion( id: int, name: String ) success: boolean
+     {method} addQuestion( quizID: int, questionID: int ) success: boolean
+     {method} removeQuestion( quizID: int, questionID: int ) success: boolean
+     {method} handleUpdateQuizQuestion( questionID: int, question: String ) success: boolean
+     {method} handleDisplayQuiz( quizID: String )
+     {method} handleDisplayQuestion( questionID: String )
+}
+
+class Quiz {
+     {field} name : String
+     {method} Quiz( name: string )
+     {method} Quiz()
+     {method} getName()
+     {method} setName( name: String )
+     {method} addQuestion( quizID: int )
+     {method} removeQuestion( quizID: int )
+     {method} getQuestions() ArrayList<Integer>
+}
+
+class Question {
+     {field} name : String
+
+     {method} Question( name: String )
+     {method} Question()
+     {method} getName()
+     {method} setName( name: String )
+     {method} addQuiz( quizID: int )
+     {method} removeQuiz( quizID: int )
+     {method} getQuiz() ArrayList<Integer>
+}
+
+QuizMain ->"*" Quiz
+QuizMain ->"*" Question
+Quiz "*"<->"*" Question
+@enduml

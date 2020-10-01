@@ -1,4 +1,6 @@
-
+/**
+ * Represent fraction by storing numator and demanator
+ */
 public class BadFrac {
 	private int numerator;
 	private int denominator;
@@ -39,9 +41,6 @@ public class BadFrac {
 	 * @return whether the fraction is reduced
 	 */
 	public boolean isReduced() {
-		if(this.numerator == 0)
-			return true;
-		
 		int val = gcm(this.numerator, this.denominator);
 		System.out.println(val);
 		if(gcm(this.numerator, this.denominator) == 1)
@@ -66,6 +65,24 @@ public class BadFrac {
 	public BadFrac add(BadFrac incoming) {
 		int commonDen = this.denominator * incoming.denominator;
 		int newNum = (this.numerator*incoming.denominator) + (incoming.numerator*this.denominator);
-		return new BadFrac(newNum, commonDen);
+		int gcm = gcm( commonDen, newNum );
+		return new BadFrac( newNum/gcm, commonDen/gcm );
 	}
+
+
+	public boolean equals( Object compare ) {
+		if ( compare == this ) return true;
+		if ( compare == null ) return false;
+		if ( getClass() != compare.getClass() ) return false;
+		if ( this.denominator != ( ( BadFrac )compare ).denominator ) return false;
+		if ( this.numerator != ( ( BadFrac )compare ).numerator ) return false;
+		return true;
+	}
+
+	public String toString() {
+		return Integer.toString( denominator ) + "/" + Integer.toString( numerator );
+	}
+
+
+
 }

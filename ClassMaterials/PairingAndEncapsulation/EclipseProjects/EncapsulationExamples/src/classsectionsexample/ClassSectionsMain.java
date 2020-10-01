@@ -1,5 +1,4 @@
 package classsectionsexample;
-
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -12,35 +11,18 @@ import java.util.Scanner;
  */
 public class ClassSectionsMain {
 
-	/**
-	 * 
-	 * Prints student with the longest name, per class section
-	 * 
-	 * @param args not used
-	 */
 	public static void main(String[] args) {
-		
 		HashMap<Integer, ClassSection> map = new HashMap<Integer,ClassSection>();
-		Scanner input = new Scanner(System.in);
-		while(true) {
-			System.out.println("Enter student's name (or exit to quit).");
+		Scanner input = new Scanner( System.in );
+		while( true ) {
+			System.out.println( "Enter student's name (or exit to quit)." );
 			String name = input.nextLine().trim();
-			if(name.equals("exit")) {
-				break;
-			}
-			System.out.println("What section should I add the student to?");
+			if( name.equals( "exit" ) ) break;
+			System.out.println( "What section should I add the student to?" );
 			int sectionNum = input.nextInt();
-			//removes the enter
 			input.nextLine();
-			
-			// Your code goes here
-			if(map.containsKey(sectionNum)) {
-				map.get(sectionNum).addStudent(name);
-			} else {
-				ClassSection section = new ClassSection(sectionNum);
-				map.put(sectionNum, section);
-				section.addStudent(name);
-			}		
+			if ( !map.containsKey( sectionNum ) ) map.put( sectionNum, new ClassSection( sectionNum ) );
+			map.get( sectionNum ).addStudent( name );	
 		}
 		
 		input.close();

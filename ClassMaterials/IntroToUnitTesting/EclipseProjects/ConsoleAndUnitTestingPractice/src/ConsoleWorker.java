@@ -79,15 +79,40 @@ public class ConsoleWorker {
 		// TODO uncomment the code below and implement 
 		// the missing methods, adding appropriate prompts 
 		// before each input.
-//		worker.setName();
-//		worker.setBirthMonth();
-//		worker.setBirthDay();
-//		worker.setBirthYear();
-//		worker.setAnualSalary();
+		worker.setName();
+		worker.setBirthMonth();
+		worker.setBirthDay();
+		worker.setBirthYear();
+		worker.setAnualSalary();
 
-		System.out.printf("%s was born %02d/%02d/%d and earns $%03.2f.%n", worker.getName(), worker.getBirthMonth(),
-				worker.getBirthDay(), worker.getBirthYear(), worker.getAnnualSalary());
+		System.out.printf( "%s was born %02d/%02d/%d and earns $%03.2f.%n", worker.getName(), worker.getBirthMonth(),
+				worker.getBirthDay(), worker.getBirthYear(), worker.getAnnualSalary() );
 
+	}
+
+	private void setAnualSalary() {
+		System.out.print( "Please enter anual salary:" );
+		this.annualSalary = this.inputScanner.nextDouble();
+	}
+
+	private void setBirthDay() {
+		System.out.print( "Please enter birth day: " );
+		this.birthDay = this.inputScanner.nextInt();
+	}
+
+	private void setBirthMonth() {
+		System.out.print( "Please enter birth month:" );
+		this.birthMonth = this.inputScanner.nextInt();
+	}
+
+	private void setBirthYear() {
+		System.out.print( "Please enter birth year:" );
+		this.birthYear = this.inputScanner.nextInt();
+	}
+
+	private void setName() {
+		System.out.print( "Please enter name:" );
+		this.name = this.inputScanner.nextLine();
 	}
 
 }

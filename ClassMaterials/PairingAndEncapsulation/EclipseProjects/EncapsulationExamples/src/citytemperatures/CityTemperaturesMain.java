@@ -1,5 +1,6 @@
 package citytemperatures;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -13,53 +14,61 @@ import java.util.Scanner;
  * 
  * Example:
  * 
-Enter the city name (or exit to quit).
-Buffalo
-What is the city's temperature?
-10
-Enter the city name (or exit to quit).
-Terre Haute
-What is the city's temperature?
-25
-Enter the city name (or exit to quit).
-Buffalo
-What is the city's temperature?
-20
-Enter the city name (or exit to quit).
-exit
-Terre Haute 25.0
-Buffalo 15.0
+	Enter the city name (or exit to quit).
+	Buffalo
+	What is the city's temperature?
+	10
+	Enter the city name (or exit to quit).
+	Terre Haute
+	What is the city's temperature?
+	25
+	Enter the city name (or exit to quit).
+	Buffalo
+	What is the city's temperature?
+	20
+	Enter the city name (or exit to quit).
+	exit
+	Terre Haute 25.0
+	Buffalo 15.0
  * 
  * @author hewner
  *
  */
 public class CityTemperaturesMain {
 	
-	/**
-	 * 
-	 * Requests temperatures and prints averages
-	 *
-	 * @param args not used
-	 */
+	private static HashMap<String,ArrayList<Double>> temperatures = new HashMap<String,ArrayList<Double>>();
+
 	public static void main(String[] args) {
 		
-		//TODO: Maybe add some code here
-		Scanner input = new Scanner(System.in);
+		Scanner input = new Scanner( System.in );
 		
-		while(true) {
-			System.out.println("Enter the city name (or exit to quit).");
+		while( true ) {
+			System.out.println( "Enter the city name (or exit to quit)." );
 			String cityName = input.nextLine().trim();
-			if(cityName.equals("exit")) {
-				break;
-			}
-			System.out.println("What is the city's temperature?");
-			double temperature = input.nextDouble();
-			//removes the enter
+			if( cityName.equals( "exit" ) ) break;
+			System.out.println( "What is the city's temperature?" );
+			Double temperature = input.nextDouble();
 			input.nextLine();
-			
-			// TODO: add some code here		
+			if ( !temperatures.containsKey( cityName ) ) temperatures.put( cityName, new ArrayList<Double>() );
+			temperatures.get( cityName ).add( temperature );
 		}
-		//TODO: add some code here
+
 		input.close();
+
+		// print cities
+		for ( HashMap.Entry<String,ArrayList<Double>> entity : temperatures.entrySet() ) {
+			System.out.println( entity.getKey() + " " + calculateTempAvg( entity.getValue() ) );
+		}
+	}
+
+	/** GET AVERAGE TEMP (PUBLIC)
+	 * 	Calculate the average of an array list of doubles
+	 * @param temps { ArrayList<Double> }
+	 * @return avg { double }
+	 */
+	public static double calculateTempAvg( ArrayList<Double> temps ) {
+		double total = 0;
+		for ( Double temp : temps ) total += temp;
+		return ( total / ( double )( temps.size() ) );
 	}
 }

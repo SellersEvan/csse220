@@ -1,19 +1,40 @@
 Reflection Questions:
 
 1.A In your implementation could you replace Questions with Strings (yes or no)? 
-
+No
 
 1.B Why or why not? (2-3 sentences)
-
+Because we want to encapsolate. This would also allow us to lose the ability to
+add additional attributes to it in the future like answer. Or my was setup also allowed
+you to see what question is in which quizes. That wouldn't be possible. The setup to use
+a string instead of an object would be a poor choice for upgratibility and API access.
 
 
 2.A. What data type did you use to represent the 1 to many relationship between QuizMain and Question? (provide type)
+A hashmap was used to create this relasionship. Where you selected the numbers. If I was
+designing this for a real system would obvisouly used generated uID's but also a database 
+would normally take care of this.
 
 
 2.B. What is another type could you have used? (provide type) 
+Could of also used an array. How ever had concerns about upgradiability to allow
+generated uID's. 
 
+Another way which is the better way is to have uID's that are auto generated, using
+a hashmap.
 
 
 2.C. Would that have made the code better or worse? Why? (2-3 sentences)
+Using an array would of not been better because it is slower to search an array, and is
+less similar to a standard database structure. Also If the array were to be sorted or drop
+a value your whole system is wrong.
 
+The uID's would of been better with hashmap. It is more robusts. Less liklyhood of errors andmore similar to
+standard structure of a database. This method is also quicker than an array.
+
+
+Things to make it better
+extra overloaded method so you could do something like...
+addQuestion( id, new Question( "What is Programming?" ) );
+The overloaded methods would just make it easier to add questions, quickly to a specific quiz.
 

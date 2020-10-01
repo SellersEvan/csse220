@@ -1,5 +1,4 @@
 package twovstwo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -98,35 +97,42 @@ public class TwoVsTwoMain {
 	 * @throws FileNotFoundException
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner input = new Scanner(System.in);
+		// Scanner input = new Scanner(System.in);
+		Scanner input = new Scanner(new File("EclipseProjects/EncapsulationExamples/src/twovstwo/sampleTwoVsTwo.txt"));
 		
-		//uncomment this line to read input from the sample file
-		//so you don't have to type stuff in every time
-		//the text file is the same as example two, but feel
-		//free to modify it as you need
-		//
-		//input = new Scanner(new File("sampleTwoVsTwo.txt"));
-
-		// TODO: Maybe declare some variables
+		HashMap<String, Player> players = new HashMap<String,Player>();
 		
 		while (true) {
-			System.out.println("Enter the players - four names, seperated by spaces (or exit to quit).");
+			System.out.println( "Enter the players - four names, seperated by spaces (or exit to quit)." );
 			String[] names = input.nextLine().trim().split(" ");
-			if (names[0].equals("exit")) {
-				break;
-			}
-			System.out.printf("Team 1 has %s and %s.  Team 2 has %s and %s.%n", names[0],names[1],names[2],names[3]);
-			System.out.println("Which team won? (1 or 2)");
+			if ( names[ 0 ].equals( "exit" ) ) break;
+			System.out.printf( "Team 1 has %s and %s.  Team 2 has %s and %s.%n", names[0],names[1],names[2],names[3] );
+			System.out.println( "Which team won? (1 or 2)" );
 			int winner = input.nextInt();
-			// removes the enter
 			input.nextLine();
 
-			// TODO: Add some code here
+			if ( names.length != 4 ) continue;
+			if ( !( winner == 1 || winner == 2 ) ) continue;
+			for ( String name : names ) {
+				if ( !players.containsKey( name ) ) players.put( name, new Player( name ) );
+				players.get( name ).addGame( new Game( names, winner ) );
+			}
 				
 		}
 		input.close();
 		
-		// TODO: More code
+		String largestPlayerName = "";
+		int largestWinning = Integer.MIN_VALUE;
+		for ( HashMap.Entry<String, Player> player : players.entrySet() ) {
+			int _playerWinningCount = player.getValue().getWinCount();
+			if ( _playerWinningCount > largestWinning ) {
+				largestPlayerName = player.getValue().name;
+				largestWinning    = _playerWinningCount;
+			}
+		}
+
+		System.out.println( "Best Player: " + largestPlayerName );
+		players.get( largestPlayerName ).winningResults();
 
 	}
 }
