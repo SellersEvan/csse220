@@ -1,3 +1,5 @@
+package ConsoleAndUnitTestingPractice.src;
+
 import java.util.Scanner;
 
 /**

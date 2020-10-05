@@ -1,17 +1,22 @@
 Reflection Questions:
 
 1. Compare your original draft and the final draft. What is the biggest difference between the two?
-
+The biggest difference between the two was the tester  for quiz. I was original planning on saving the 
+data for each test. But opted against that later. Additionally, added boolean outputs to alot of the methods
+so you would know if they were successful later. Also removed the two way dependencies of questions on quiz, because 
+it was not needed.
 
 
 2. What did you have to change and why did you have to change it? If not, explain how you made your decisions in designing.
-
+I did not store the scores. As I saw no reason to store scores, and no effecient way to store them the way they were being used 
+without added alot more complexity to the program. Additionally, added boolean outputs to alot of the code this way you would know
+if the code, expecially hen dealing with ID based things, was done properly. This prevented duplicated ID's.
 
 
 3. Did you re-use your code from ImplementingDesign1? How much did you have to change it if so? (If not, then please explain why)
-
+I re-built all the code from scratch. I did not used the code from Design 1 because I completly forgot about design 1 being a grade book. Wow, could of saved alot of time...
 
 
 4. Select one or more specific design principles and discuss how they relate to the your experience in designing and implementing the code for this assignment.
-
-
+Prevent duplicated nouns. Prevented duplicated nouns by placing IDs in quiz instead the Question class. This is also encapsolation. Also tried to limit the amount of 
+dependencies, and removed dependencies that were not required.

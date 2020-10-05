@@ -1,0 +1,52 @@
+@startuml
+class QuizSimulatorMain {
+     {method} QuizSimulatorMain()
+
+     {method} handleCreateQuestion( int id, boolean answer, String prompt )
+     {method} handleGetQuestionPrompt( int questionId )
+     {method} handleCreateQuiz( int id )
+     {method} handleAddQuestionToQuiz( int questionId, int quizId )
+     {method} handleUpdateQuestion( int questionId, boolean answer, String prompt )
+     {method} handleGetQuizString( int quizId ) : string
+     {method} handleCreateQuizTester( int id, String searchString )
+     {method} handleGetQuizTesterScoreOnQuiz( int quizTesterId, int quizId ) : double
+     {method} handleGetQuizTesterOverallScore( int quizTesterId ) : double
+}
+
+
+class quiz {
+     {field} name : String
+     {method} getQuestions(): ArrayList<int>
+     {method} addQuestion( questionID: int )
+     {method} removeQuestion( questionID: int )
+     {method} setName( name: string )
+}
+
+class question {
+     {field} id : int
+     {field} question : String
+     {field} answer: String
+     {method} getQuizes(): ArrayList<int>
+     {method} setQuestion( question: String )
+     {method} setAnswer( question: String )
+}
+
+class Score {
+  {field} score : int
+  {field} taker : string
+  {field} test  : string
+}
+
+class QuizTester {
+  {field} buffer : string
+  {field} scores : ArrayList<String>
+  {method} takeQuiz : ArrayList<String>
+  {method} averageTest : double
+}
+
+QuizSimulatorMain ->"*" quiz
+QuizSimulatorMain ->"*" question
+quiz "*"<->"*" question
+QuizSimulatorMain ->"*" QuizTester
+QuizTester ->"*" Score
+@enduml

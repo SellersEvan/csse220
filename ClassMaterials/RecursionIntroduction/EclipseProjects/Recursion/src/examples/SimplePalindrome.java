@@ -15,8 +15,10 @@ public class SimplePalindrome {
 	 * @param input
 	 * @return
 	 */
-	public static boolean isPalindrome(String input) {
-		return false;
+	public static boolean isPalindrome( String input ) {
+		if ( input.length() <= 1 ) return true;
+		if ( input.charAt( 0 ) != input.charAt( input.length() - 1 ) ) return false;
+		return isPalindrome( input.substring( 1, input.length() - 1 ) );
 	}
 	
 	/**
@@ -31,8 +33,12 @@ public class SimplePalindrome {
 	 * @param input
 	 * @return
 	 */
-	public static boolean isPalindromeIntArray(int[] input) {
-		return false;
+	public static boolean isPalindromeIntArray( int[] input ) {
+		if ( input.length <= 1 ) return true;
+		if ( input[ 0 ] != input[ input.length - 1 ] ) return false;
+		int[] newer = new int[ input.length - 2 ];
+		for ( int i = 1; i < input.length - 1; i++ ) newer[ i - 1 ] = input[ i ];
+		return isPalindromeIntArray( newer );
 	}
 	
 }

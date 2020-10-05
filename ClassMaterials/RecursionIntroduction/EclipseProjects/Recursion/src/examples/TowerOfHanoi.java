@@ -25,7 +25,7 @@ public class TowerOfHanoi {
 	public static void main(String[] args) {
 		
 		// move stack of 8 disks, from the left to the right stack
-		moveTower(5, "left stack", "middle stack", "right stack");
+		moveTower( 3, "left stack", "middle stack", "right stack" );
 	}
 	
 	
@@ -42,8 +42,19 @@ public class TowerOfHanoi {
 	 *  	3. Move n-1 disks (tower)  from spare  to dest
 	 *  
 	 */
-	public static void moveTower( int diskNumber, String source, String spare, String dest) {
-		//TODO follow along and live code this solution
+	public static void moveTower( int diskNumber, String source, String spare, String dest ) {
+		if ( diskNumber == 1 ){
+			printInst( diskNumber, source, dest );
+		} else {
+			moveTower( diskNumber - 1, source, dest, spare );
+			printInst( diskNumber - 1, source, dest );
+			moveTower( diskNumber - 1, spare, source, dest );
+		}
+	}
+
+
+	public static void printInst( int diskNumber, String source, String dest ) {
+		System.out.println( "Move disk #" + diskNumber + " from " + source + " to " + dest );
 	}
 	
 }

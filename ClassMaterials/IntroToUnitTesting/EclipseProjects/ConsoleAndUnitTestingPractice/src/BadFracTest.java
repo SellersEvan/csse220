@@ -1,15 +1,13 @@
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+package ConsoleAndUnitTestingPractice.src;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.junit.Test;
 
 
-@SuppressWarnings("javadoc")
 public class BadFracTest {
     
     @Test

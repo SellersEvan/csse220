@@ -1,5 +1,9 @@
+package ConsoleAndUnitTestingPractice.src;
+
 /**
  * Represent fraction by storing numator and demanator
+ * 
+ * hello world
  */
 public class BadFrac {
 	private int numerator;

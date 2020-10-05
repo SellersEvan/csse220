@@ -64,7 +64,12 @@ public class SentenceTest {
 	 */
 	@Test
 	public void testReverse() {
-		// TODO: implement tests for your reverse method
+		assertEquals( new Sentence( "Hello" )   .reverse().toString(),   "olleH" );
+		assertEquals( new Sentence( "Car" )     .reverse().toString(),     "raC" );
+		assertEquals( new Sentence( "Mouse" )   .reverse().toString(),   "esuoM" );
+		assertEquals( new Sentence( "swim" )    .reverse().toString(),    "miws" );
+		assertEquals( new Sentence( "racecar" ) .reverse().toString(), "racecar" );
+		assertEquals( new Sentence( "fire" )    .reverse().toString(),    "erif" );
 	}
 
 }

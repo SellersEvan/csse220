@@ -43,20 +43,7 @@ public class Triangle {
 	 * @return the area
 	 */
 	private static int computeAreaRecursively(int inputWidth) {
-		//BASE CASE:
-		//if we get to zero width we are done return 0
-		if (inputWidth < 1) {
-			return 0;
-		}
-		
-		//RECURSIVE CALL:
-		//calculate the area of a triangle with width 1 smaller than us
-		int smallerArea = computeAreaRecursively(inputWidth - 1);
-		
-		
-		//RETURN RESULT
-		//the total area is the area of a triangle one smaller than us PLUS our width
-		return smallerArea + inputWidth;
+		return ( inputWidth < 1 ) ? 0 : computeAreaRecursively( inputWidth - 1 ) + inputWidth;
 	}
 
 

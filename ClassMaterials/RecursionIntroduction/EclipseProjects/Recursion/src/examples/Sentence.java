@@ -9,6 +9,10 @@ package examples;
 public class Sentence {
 
 	private final String text;
+	private final static String VALID_CHAR_LOWER   = "abcdefghijklmnopqrstuvwxyz";
+	private final static String VALID_CHAR_UPPER   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private final static String VALID_CHAR_SPECIAL = "";
+	private final static String VALID_CHAR         = ( VALID_CHAR_LOWER + VALID_CHAR_UPPER + VALID_CHAR_SPECIAL );
 
 	/**
 	 * Creates a sentence object for the given string.
@@ -51,19 +55,33 @@ public class Sentence {
 	 * @return true iff this sentence is a palindrome
 	 */
 	public boolean isPalindrome() {
-		// TODO: implement this method
-		return false;
+		String buffer = "";
+
+		for ( char ch : this.text.toLowerCase().toCharArray() )
+			if ( VALID_CHAR_LOWER.indexOf( ch ) != -1 ) buffer += Character.toString( ch );
+		
+		return SimplePalindrome.isPalindrome( buffer );
 	}
 
 	/**
 	 * @return a NEW sentence object whose text is the reverse of this one
 	 */
 	public Sentence reverse() {
-		/*
-		 * TODO: implement and JUnit test this method.  Your solution must be
-		 * recursive.
-		 */
-		return null;
+		String buffer = "";
+
+		for ( char ch : reverseArray( this.text.toCharArray() ) )
+			if ( VALID_CHAR.indexOf( ch ) != -1 ) buffer += Character.toString( ch );
+
+		return new Sentence( buffer );
+	}
+
+	public char[] reverseArray( char[] input ) {
+		char[] result = new char[ input.length ];
+
+		for ( int i = 0; i < input.length; i++ )
+			result[ i ] = input[ input.length - 1 - i ];
+
+		return result;
 	}
 	
 	@Override

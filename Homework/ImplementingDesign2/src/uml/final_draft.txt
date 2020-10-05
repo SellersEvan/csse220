@@ -1,0 +1,57 @@
+@startuml
+class QuizSimulatorMain {
+     {method} QuizSimulatorMain()
+
+     {method} handleCreateQuestion( int id, boolean answer, String prompt ) : boolean
+     {method} handleGetQuestionPrompt( int questionId ) : boolean
+     {method} handleCreateQuiz( int id ) : boolean
+     {method} handleAddQuestionToQuiz( int questionId, int quizId ) : boolean
+     {method} handleUpdateQuestion( int questionId, boolean answer, String prompt ) : boolean
+     {method} handleGetQuizString( int quizId ) : string
+     {method} handleCreateQuizTester( int id, String searchString ) : boolean
+     {method} handleGetQuizTesterScoreOnQuiz( int quizTesterId, int quizId ) : double
+     {method} handleGetQuizTesterOverallScore( int quizTesterId ) : double
+}
+
+
+class Quiz {
+     {field} questions : ArrayList<Integer>
+
+     {method} Quiz()
+     {method} Quiz( ArrayList<Integer> questionIDs )
+     {method} Quiz( Integer questionID )
+
+     {method} addQuestion( Integer questionID )
+     {method} addQuestion( ArrayList<Integer> questionIDs )
+     {method} hasQuestion( Integer questionID ) : boolean
+     {method} getQuestions() : ArrayList<Integer>
+}
+
+class Question {
+     {field} prompt : String
+     {field} answer: Boolean
+
+     {method} Question()
+     {method} Question( boolean answer, String prompt )
+
+     {method} setQuestion( boolean answer, String prompt )
+     {method} setPrompt( String prompt )
+     {method} setAnswer( boolean answer )
+     {method} getPrompt() : String
+     {method} getAnswer() : Boolean
+}
+
+
+class QuizTester {
+  {field} buffer : string
+
+  {method} QuizTaker( String buffer )
+  {method} takeQuiz( ArrayList<Question> questions ) : double
+  {method} getBuffer() : String
+}
+
+QuizSimulatorMain ->"*" Quiz
+QuizSimulatorMain ->"*" Question
+Quiz ->"*" Question
+QuizSimulatorMain ->"*" QuizTester
+@enduml
