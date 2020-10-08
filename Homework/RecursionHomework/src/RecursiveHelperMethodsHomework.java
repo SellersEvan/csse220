@@ -1,14 +1,21 @@
-
-/**
- * A set of recursion problems that require the use of recursive helper methods.  
- * Note that you only have to solve 2 of 3 of these to get full credit.
+/*
+ *   Edited by Evan Sellers <sellersew@gmail.com> on
+ *   behalf of Rose-Hulman Institute of Technology
  *
- * Many of these problems have iterative solutions as well but you 
- * must use a recursive approach.
+ *   author: Evan Sellers <sellersew@gmail.com>
+ *   date: Wed Oct 07 2020
+ *   original: wilkin
+ *   file: RecursiveHelperMethodsHomework.java
+ *   project: CSSE220
+ *   purpose: A set of recursion problems that require
+ * 		the use of recursive helper methods. Note that you
+ * 		only have to solve 2 of 3 of these to get full credit.
+ *		Many of these problems have iterative solutions as
+ * 		well but you must use a recursive approach.
  *
- * @author wilkin.
- *         Created Feb 28, 2020.
  */
+
+
 public class RecursiveHelperMethodsHomework {
 	
 	/**
@@ -43,8 +50,18 @@ public class RecursiveHelperMethodsHomework {
 	  * @return true if toFind is found in input, false otherwise
 	  */
 	
-	static boolean findIn(int[] input, int[] toFind) {
-		return false;
+	static boolean findIn( int[] input, int[] toFind ) {
+		if ( input.length < toFind.length ) return false;
+		if ( toFind.length == 0 ) return true;
+
+		int[] newInput  = new int[ input .length - 1 ];
+		int[] newToFind = new int[ toFind.length - 1 ];
+
+		for ( int i = 0; i < newInput.length; i++ )   newInput[ i ] =  input[ i + 1 ];
+		for ( int i = 0; i < newToFind.length; i++ ) newToFind[ i ] = toFind[ i + 1 ];
+
+		if ( input[ 0 ] == toFind[ 0 ] ) return findIn( newInput, newToFind );
+		return findIn( newInput, toFind );
 	}
 	
 /**
@@ -64,9 +81,16 @@ public class RecursiveHelperMethodsHomework {
 	 * @return the index of the third capital letter, -1 if a third one does not 
 	 * exist in the input String
 	 */
-	public static int findThirdCapital(String input) {
-		return -1;
-	}	
+	public static int findThirdCapital( String input ) {
+		return _findThirdCapital( input, 0, 0 );
+	}
+	
+	public static int _findThirdCapital( String input, int totalCaps, int index ) {
+		if ( totalCaps == 3 ) return index - 1;
+		if ( input.length() == 0 ) return - 1;
+		if ( Character.isUpperCase( input.charAt( 0 ) ) ) return _findThirdCapital( input.substring( 1 ), totalCaps + 1, index + 1 );
+		return _findThirdCapital( input.substring( 1 ), totalCaps, index + 1 );
+	}
 	
 	/**
 	 * For this problem, you are given an array of integers.  You are to use 
@@ -105,10 +129,33 @@ public class RecursiveHelperMethodsHomework {
 	 * @param input - The array of integers
 	 * @return the highest possible sum of any subsequence
 	 */
-	public static int highestSubsequenceSum(int[] input) {
-		
-		return 0;
+	public static int highestSubsequenceSum( int[] input ) {
+		int total = 0;
+		for ( int num : input ) total += num;	
+		return _highestSubsequenceSum( input, total );
 	}
+
+	public static int _highestSubsequenceSum( int[] input, int currentTotal ) {
+		if ( input.length == 0 ) return currentTotal;
+		int[] leftInput  = new int[ input.length - 1 ];
+		int[] rightInput = new int[ input.length - 1 ];
+
+		int leftTotal = 0;
+		int rightTotal = 0;
+		for ( int i = 0; i < leftInput .length; i++ ) leftInput [ i ] = input[ i ];
+		for ( int i = 0; i < rightInput.length; i++ ) rightInput[ i ] = input[ i + 1 ];
+		for ( int num : leftInput  ) leftTotal  += num;
+		for ( int num : rightInput ) rightTotal += num;
+		
+		if ( rightTotal > leftTotal ) return _highestSubsequenceSum( rightInput, Math.max( currentTotal, rightTotal ) );
+		if ( rightTotal < leftTotal ) return _highestSubsequenceSum( leftInput, Math.max( currentTotal, leftTotal ) );
+		return Math.max(
+				_highestSubsequenceSum( rightInput, Math.max( currentTotal, rightTotal ) ),
+				_highestSubsequenceSum( leftInput, Math.max( currentTotal, leftTotal ) )
+			);
+	}
+
+	
 
 }
 

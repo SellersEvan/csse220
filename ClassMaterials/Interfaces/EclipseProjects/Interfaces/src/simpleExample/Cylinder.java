@@ -7,7 +7,7 @@ package simpleExample;
  * @author Jason Yoder
  *
  */
-public class Cylinder {
+public class Cylinder implements Weighable {
 
 	public static final double VOLUME_TO_WEIGHT_RATIO = 0.0002;
 	private double sideLength, radius;
@@ -20,6 +20,11 @@ public class Cylinder {
 	public double getWeightInTons() {
 		double volume = sideLength * Math.PI*Math.pow(this.radius, 2);
 		return volume * VOLUME_TO_WEIGHT_RATIO;
+	}
+
+	@Override
+	public double getWeightInLbs() {
+		return getWeightInTons() * 2000;
 	}
 	
 	@Override

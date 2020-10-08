@@ -6,7 +6,7 @@ package simpleExample;
   * 
   *  @author Jason Yoder
   */
-public class Ball {
+public class Ball implements Weighable {
 	
 	public static final double VOLUME_TO_WEIGHT_RATIO =0.1;
 	private double radius;
@@ -15,6 +15,7 @@ public class Ball {
 		this.radius = radius;
 	}
 	
+	@Override
 	public double getWeightInLbs() {
 		double volume = Math.PI * 4/3 *Math.pow(radius, 3);
 		return volume*VOLUME_TO_WEIGHT_RATIO;

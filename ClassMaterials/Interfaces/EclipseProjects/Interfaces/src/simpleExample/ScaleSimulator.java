@@ -19,68 +19,47 @@ public class ScaleSimulator {
 	public static void main(String[] args) {
 		
 		// create a list of balls and compare them
-		ArrayList<Ball> balls = new ArrayList<Ball>();
+		ArrayList<Weighable> objects = new ArrayList<Weighable>();
 		for (int i=1; i<= 3; i++) {
-			balls.add( new Ball(i) );
+			objects.add( new Ball( i ) );
+			objects.add( new Cube( i ) );
+			objects.add( new Cylinder( i, i ) );
 		}
-		System.out.println("---------------------------------------");
-		reportBallComparison(balls);
-		
-		
-		// create a list of cubes and compare them
-		ArrayList<Cube> cubes = new ArrayList<Cube>();
-		for (int i=1; i<= 3; i++) {
-			cubes.add( new Cube(i) );
-		}
-		System.out.println("---------------------------------------");
-		reportCubeComparison(cubes);
-		
-		
-		// create a list of cylinders and compare them
-		ArrayList<Cylinder> cylinders = new ArrayList<Cylinder>();
-		for (int i=1; i<= 3; i++) {
-			cylinders.add( new Cylinder(i, i) );
-		}
-		
-		//compare balls and cubes
-		System.out.println("---------------------------------------");
-		reportCylinderComparison(cylinders);
-		
-		//How could I compare all of these?
-		
+		System.out.println( "---------------------------------------" );
+		reportBallComparison( objects );
 
 	}
 	
 
 
 
-	private static void reportBallComparison(ArrayList<Ball> balls) {
-		if ( balls.isEmpty() ) {
+	private static void reportBallComparison( ArrayList<Weighable> objects ) {
+		if ( objects.isEmpty() ) {
 			return;
 		}
-		Ball heaviest = balls.get(0);
-		for(Ball b: balls) {
-			if (b.getWeightInLbs() > heaviest.getWeightInLbs() ) {
-				System.out.println( b + " is heavier than " + heaviest );
-				heaviest = b;
-			} else if (b.getWeightInLbs() < heaviest.getWeightInLbs()) {
-				System.out.println( b + " is lighter than " + heaviest );
+		Weighable heaviest = objects.get( 0 );
+		for( Weighable object: objects ) {
+			if ( object.getWeightInLbs() > heaviest.getWeightInLbs() ) {
+				System.out.println( object + " is heavier than " + heaviest );
+				heaviest = object;
+			} else if ( object.getWeightInLbs() < heaviest.getWeightInLbs() ) {
+				System.out.println( object + " is lighter than " + heaviest );
 			} else {
-				System.out.println( b + " is the same as " + heaviest );
+				System.out.println( object + " is the same as " + heaviest );
 			}
 		}
 	}
 	
-	private static void reportCubeComparison(ArrayList<Cube> cubes) {
-		if ( cubes.isEmpty() ) {
+	private static void reportCubeComparison( ArrayList<Weighable> object) {
+		if ( object.isEmpty() ) {
 			return;
 		}
-		Cube heaviest = cubes.get(0);
-		for(Cube c: cubes) {
-			if (c.getMassInKG() > heaviest.getMassInKG() ) {
+		Weighable heaviest = object.get(0);
+		for(Weighable c: object) {
+			if (c.getWeightInLbs() > heaviest.getWeightInLbs() ) {
 				System.out.println( c + " is heavier than " + heaviest );
 				heaviest = c;
-			} else if (c.getMassInKG() < heaviest.getMassInKG()) {
+			} else if (c.getWeightInLbs() < heaviest.getWeightInLbs()) {
 				System.out.println( c + " is lighter than " + heaviest );
 			} else {
 				System.out.println( c + " is the same as " + heaviest );
