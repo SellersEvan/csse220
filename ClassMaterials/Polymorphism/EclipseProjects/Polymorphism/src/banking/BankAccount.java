@@ -62,10 +62,10 @@ public abstract class BankAccount {
 		other.deposit(amount);
 	}
 
-	// TODO 1: add toString() method, examine output of PrintingExampleMain
-	// TODO 2: make sure toString() works appropriately for CheckingAccount
-	
-	
+	public String toString() {
+		return "$" + this.balance;
+	}
+
 	/**
 	 * @return a deep copy of this account 
 	 */

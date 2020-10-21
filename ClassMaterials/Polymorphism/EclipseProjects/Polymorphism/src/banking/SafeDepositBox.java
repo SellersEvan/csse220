@@ -23,5 +23,10 @@ public class SafeDepositBox {
 		return String.format("SafeDepositBox %d", this.boxNumber);
 	}
 
-	// TODO 4: implement equals()
+	public boolean equals( SafeDepositBox otherDepositBox ) {
+		if ( !( otherDepositBox instanceof SafeDepositBox ) ) return false;
+		if ( ( ( SafeDepositBox ) otherDepositBox ) == this ) return true;
+		if ( ( ( SafeDepositBox ) otherDepositBox ).boxNumber == this.boxNumber ) return true;
+		return false;
+	}
 }

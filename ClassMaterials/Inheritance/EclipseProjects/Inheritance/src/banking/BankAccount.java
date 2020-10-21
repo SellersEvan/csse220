@@ -1,10 +1,18 @@
+/*
+ *   Edited by Evan Sellers <sellersew@gmail.com> on
+ *   behalf of Rose-Hulman Institute of Technology
+ *
+ *   author: Evan Sellers <sellersew@gmail.com>
+ *   date: Wed Oct 14 2020
+ *   original: Cay Horstmann, revised to CSSE220 coding standards by Curt Clifton
+ *   file: BankAccount.java
+ *   project: A banking account
+ *   purpose: A bank account has a balance that can be changed by deposits and withdrawals.
+ *
+ */
+
 package banking;
 
-/**
- * A bank account has a balance that can be changed by deposits and withdrawals.
- * 
- * @author Cay Horstmann, revised to CSSE220 coding standards by Curt Clifton.
- */
 public class BankAccount {
 	private double balance;
 
@@ -20,7 +28,7 @@ public class BankAccount {
 	 * 
 	 * @param initialBalance
 	 */
-	public BankAccount(double initialBalance) {
+	public BankAccount( double initialBalance ) {
 		this.balance = initialBalance;
 	}
 
@@ -29,7 +37,7 @@ public class BankAccount {
 	 * 
 	 * @param amount
 	 */
-	public void deposit(double amount) {
+	public void deposit( double amount ) {
 		this.balance += amount;
 	}
 

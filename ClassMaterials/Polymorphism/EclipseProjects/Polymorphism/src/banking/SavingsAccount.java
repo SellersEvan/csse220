@@ -45,5 +45,8 @@ public class SavingsAccount extends BankAccount {
 		return new SavingsAccount(this.getBalance(), this.interestRate);
 	}
 
-	// TODO 3: override toString() method to include rate
+
+	public String toString() {
+		return super.toString() + " with intrest of " + this.interestRate + "%";
+	}
 }

@@ -1,7 +1,14 @@
 package slides;
 
+import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 /**
  * This class demonstrates ActionListeners.
@@ -31,15 +38,32 @@ public class BreakfastMain {
 		 * inner classes to use the String.
 		 */
 		JFrame frame = new JFrame();
+		JPanel panel = new JPanel();
 		frame.setTitle("Breakfast for Goldilocks");
 
+		// Regular Class
 		JButton eatButton = new JButton("Eat Porridge");
-		frame.add(eatButton);
-		// TODO: add an ActionListener using an external class
+		panel.add(eatButton);
+		ActionListener ear = new MyListener( frame );
+		eatButton.addActionListener( ear );
 
-		// TODO: add an ActionListener using an inner class
+		// Inclass
+		JButton eatButton2 = new JButton("Eat Porridge Inclass");
+		panel.add( eatButton2 );
+		ActionListener ear2 = new MyListener2( frame );
+		eatButton2.addActionListener( ear2 );
 
-		// TODO: add an ActionListener using an anonymous class
+		// Anonymous
+		JButton eatButton3 = new JButton( "Eat Porridge anonymous" );
+		panel.add( eatButton3 );
+		eatButton3.addActionListener( new ActionListener() {
+			public void actionPerformed( ActionEvent e ) {
+				System.out.println( "To Hot!" );
+				frame.setTitle( "To Hot!" );
+			}
+		});
+
+		frame.add( panel, BorderLayout.SOUTH );
 
 		/*
 		 * CONSIDER: pack() sets the size of the frame based on what we've put
@@ -48,6 +72,20 @@ public class BreakfastMain {
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+	}
+
+	private class MyListener2 implements ActionListener {
+		private JFrame frame;
+
+		public MyListener2( JFrame frame ) {
+			this.frame = frame;
+		}
+	
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println( "To Hot!" );
+			frame.setTitle( "To Hot!" );
+		}
 	}
 	
 
